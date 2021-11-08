@@ -1,0 +1,50 @@
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  width: 4rem;
+  height: 4rem;
+  background: blue;
+  
+  &.active {
+    outline: solid 0.3rem blue;
+    outline-offset: -0.3rem;
+  }
+
+  &.can-move {
+    &::after {
+      content: '';
+      background: blue;
+      width: 25%;
+      height: 25%;
+    }
+  }
+
+  &--black {
+    background: #000;
+  }
+
+  &--white {
+    background: #FFF;
+  }
+
+  &__x {
+    position: absolute;
+    z-index: 10;
+    left: 0rem;
+    top: 0;
+    color: #FFF;
+    background: green;
+  }
+
+  &__y {
+    z-index: 10;
+    background: blue;
+    position: absolute;
+    right: 0rem;
+    color: #FFF;
+    top: 0;
+  }
+}

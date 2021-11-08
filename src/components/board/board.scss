@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: grey;
+  display: flex;
+  flex-direction: column;
+}
+
+.board {
+  
+  &__debug {
+    margin-top: 2rem;
+    width: 10rem;
+    height: 2rem;
+    background: #FFF;
+    color: #000;
+    cursor: pointer;
+  }
+}
