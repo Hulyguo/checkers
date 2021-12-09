@@ -1,3 +1,5 @@
+import { KingPiece } from "../../game-driver/KingPiece";
+import { Piece } from "../../game-driver/Piece";
 import { Player } from "../../game-driver/types/types";
 
 export const getColor = (belongsTo: Player) => {
@@ -7,4 +9,8 @@ export const getColor = (belongsTo: Player) => {
     case Player.WHITE:
       return 'white';
   }
+}
+
+export const isKingPiece = (piece: Piece) => {
+  return piece instanceof KingPiece;
 }

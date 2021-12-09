@@ -1,10 +1,12 @@
 import { Piece } from "./Piece";
 
-// export class KingPiece extends Piece {
+export class KingPiece extends Piece {
 
-//   constructor() {
-//     super();
-//   }
-  
+  constructor(piece: Piece) {
+    super(piece.belongsTo);
+  }
 
-// }
+  get directionOfMotion() {
+    return [-1, 1];
+  }
+}

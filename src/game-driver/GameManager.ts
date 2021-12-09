@@ -1,4 +1,6 @@
+import { isKingPiece } from "../components/utils/gameUtils";
 import { Board } from "./board/Board";
+import { KingPiece } from "./KingPiece";
 import { Piece } from "./Piece";
 import { GameTile } from "./Tile";
 import { END_COORDINATES, Player, START_COORDINATES } from "./types/types";
@@ -9,7 +11,7 @@ export class GameManager {
   
   constructor() {
     this._currentTurn = Player.BLACK;
-    this._board = new Board();
+    this._board = Board.Instance;
   }
 
   public initialize() {
@@ -21,13 +23,13 @@ export class GameManager {
   }
 
   public executeTurn(selectedTile: GameTile, tile: GameTile) {
-    const pieceToMove = this.board.board[selectedTile.coordinates.y][selectedTile.coordinates.x].piece;
+    let pieceToMove = this.board.board[selectedTile.coordinates.y][selectedTile.coordinates.x].piece;
     if (pieceToMove && this.board.isMoveValid(tile.coordinates)) {
       this.toggleTurn();
       this.board.movePiece(selectedTile, tile);
 
       if (this.shouldMakeKing(pieceToMove, tile)) {
-        pieceToMove.isKing = true;
+        this.board.board[tile.y][tile.x].piece = new KingPiece(pieceToMove);
       }
     }
     this.board.setSelectedTile(null);
@@ -35,7 +37,7 @@ export class GameManager {
   }
 
   private shouldMakeKing(pieceToMove: Piece, tile: GameTile) {
-    if (pieceToMove.isKing) {
+    if (isKingPiece(pieceToMove)) {
       return;
     }
     if (pieceToMove.belongsToPlayer(Player.BLACK)) {
@@ -45,8 +47,9 @@ export class GameManager {
   }
 
   private checkWinCondition() {
-    let whiteCount = 0;
+    let whiteCount = 0; 
     let blackCount = 0;
+      
     this.gameBoard.forEach(row => row.forEach(tile => {
       const piece = tile.piece;
       if (piece?.belongsToPlayer(Player.BLACK)) {
